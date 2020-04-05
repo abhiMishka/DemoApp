@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="5dp"
-    app:cardCornerRadius="5dp"
     android:layout_margin="5dp"
+    android:elevation="5dp"
     android:foreground="?android:attr/selectableItemBackground"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp">
 
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
         android:baselineAligned="false"
-        android:paddingBottom="12dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,175 +29,127 @@
             <TextView
                 android:id="@+id/restaurantNameTv"
                 style="@style/CardBoldText"
+                android:typeface="sans"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Dilli Darbar"
+                tools:text="Dilli Darbar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:id="@+id/state_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_label"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/restaurantNameTv"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-                <TextView
-                    android:id="@+id/cuisineNameTv"
-                    style="@style/LableText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginTop="4dp"
-                    android:gravity="start"
-                    android:singleLine="false"
-                    android:text="North Indian"
-                    android:textAlignment="textStart" />
-            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/secondlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="left"
+                android:id="@+id/addressTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/address"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/addressVaueTv"
+                style="@style/Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:lineSpacingExtra="2dp"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toRightOf="@+id/recoveredTv"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="112" />
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/location_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/quantum_black_100"
-                android:text="Rating"
-                android:textStyle="bold"
                 android:id="@+id/ratingTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"/>
+                android:layout_marginRight="8dp"
+                android:text="Rating"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_marginLeft="5dp"
-                app:layout_constraintLeft_toRightOf="@+id/ratingTv"
-                app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/ratingVaueTv"
                 style="@style/Heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textSize="14sp"
-                android:lineSpacingExtra="2dp"
+                android:layout_marginLeft="5dp"
                 android:ellipsize="end"
+                android:gravity="left"
+                android:lineSpacingExtra="2dp"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toRightOf="@+id/ratingTv"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="112" />
 
             <TextView
-                app:layout_constraintRight_toLeftOf="@+id/activeVaueTv"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/quantum_black_100"
-                android:text="Active"
-                android:textStyle="bold"
-                android:id="@+id/activeTv"
+                android:id="@+id/costForTwoTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp" />
+                android:layout_marginRight="8dp"
+                android:text="@string/cost_for_two"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toLeftOf="@+id/costForTwoVaueTv"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_marginLeft="5dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/activeVaueTv"
+                android:id="@+id/costForTwoVaueTv"
                 style="@style/Heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textSize="14sp"
-                android:lineSpacingExtra="2dp"
+                android:layout_marginLeft="5dp"
                 android:ellipsize="end"
-                tools:text="112" />
+                android:gravity="left"
+                android:lineSpacingExtra="2dp"
+                android:textSize="14sp"
+                android:text="@string/rupee_with_amount"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlHardcoded" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:gravity="center_vertical"
-            android:id="@+id/secondlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/quantum_black_100"
-                android:text="Recovered"
-                android:textStyle="bold"
-                android:id="@+id/recoveredTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"/>
-
-            <TextView
-                android:layout_marginLeft="5dp"
-                app:layout_constraintLeft_toRightOf="@+id/recoveredTv"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/recoveredVaueTv"
-                style="@style/Heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textSize="14sp"
-                android:lineSpacingExtra="2dp"
-                android:ellipsize="end"
-                tools:text="112" />
-
-            <TextView
-                app:layout_constraintRight_toLeftOf="@+id/deathsVaueTv"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/quantum_black_100"
-                android:text="Deaths"
-                android:textStyle="bold"
-                android:id="@+id/deathsTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp" />
-
-            <TextView
-                android:layout_marginLeft="5dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/deathsVaueTv"
-                style="@style/Heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textSize="14sp"
-                android:lineSpacingExtra="2dp"
-                android:ellipsize="end"
-                tools:text="112" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/vehicle_input"
         android:layout_width="match_parent"
