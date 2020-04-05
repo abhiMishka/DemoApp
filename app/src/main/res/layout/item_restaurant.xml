@@ -48,21 +48,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/restaurantNameTv"
                 app:layout_constraintTop_toTopOf="parent">
-
-
-                <TextView
-                    android:id="@+id/cuisineNameTv"
-                    style="@style/LableText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginTop="4dp"
-                    android:gravity="start"
-                    android:singleLine="false"
-                    android:text="North Indian"
-                    android:textAlignment="textStart" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

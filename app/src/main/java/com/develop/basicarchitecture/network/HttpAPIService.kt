@@ -12,6 +12,6 @@ interface HttpAPIService {
     @GET(HttpConstants.SEARCH_QUERY)
     suspend fun search(@Query("q") query : String,
                        @Query("start") start : Long,
-                       @Query("count") count : Long): Response<JsonElement>
+                       @Query("count") count : Long): Response<JsonElement>?
 
 }

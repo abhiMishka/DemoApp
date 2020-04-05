@@ -8,6 +8,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.develop.basicarchitecture.network.ItemSourceFactory
 import com.develop.basicarchitecture.network.dataclasses.ItemDataSource
+import com.develop.basicarchitecture.network.dataclasses.ListItem
 import com.develop.basicarchitecture.network.dataclasses.SearchResponse
 import kotlinx.coroutines.Dispatchers
 import java.util.concurrent.Executor
@@ -16,7 +17,7 @@ import java.util.concurrent.Executors
 class MainViewModel : ViewModel() {
 
     private val executor: Executor = Executors.newFixedThreadPool(5)
-    private var restaurantPagedList: LiveData<PagedList<SearchResponse.Restaurant>>? = null
+    private var restaurantPagedList: LiveData<PagedList<ListItem>>? = null
 
     fun providePagingConfig(): PagedList.Config = PagedList.Config.Builder()
         // If placeholders are disabled, not-yet-loaded content
@@ -41,7 +42,7 @@ class MainViewModel : ViewModel() {
 
     }
 
-    fun getRestaurantLiveData(): LiveData<PagedList<SearchResponse.Restaurant>>? {
+    fun getRestaurantLiveData(): LiveData<PagedList<ListItem>>? {
         return restaurantPagedList
     }
 //    private fun initializedPagedListBuilder(config: PagedList.Config):

@@ -1,17 +1,16 @@
 package com.develop.basicarchitecture.ui.main
 
 import androidx.recyclerview.widget.DiffUtil
-import com.develop.basicarchitecture.network.dataclasses.SearchResponse
+import com.develop.basicarchitecture.network.dataclasses.ListItem
+import com.develop.basicarchitecture.network.dataclasses.RestaurantItem
 
-class DiffUtilCallBack : DiffUtil.ItemCallback<SearchResponse.Restaurant>() {
-    override fun areItemsTheSame(oldItem: SearchResponse.Restaurant, newItem: SearchResponse.Restaurant): Boolean {
-        return oldItem.restaurant.id == newItem.restaurant.id
+class DiffUtilCallBack : DiffUtil.ItemCallback<ListItem>() {
+    override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+        return (oldItem is RestaurantItem && newItem is RestaurantItem)
     }
 
-    override fun areContentsTheSame(oldItem: SearchResponse.Restaurant, newItem: SearchResponse.Restaurant): Boolean {
-        return oldItem.restaurant.name == newItem.restaurant.name
-                && oldItem.restaurant.location == newItem.restaurant.location
-                && oldItem.restaurant.allReviewsCount == newItem.restaurant.allReviewsCount
+    override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+        return (oldItem is RestaurantItem && newItem is RestaurantItem)
     }
 
 }

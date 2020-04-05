@@ -1,29 +1,19 @@
 package com.develop.basicarchitecture.ui.main
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.develop.basicarchitecture.R
-import com.develop.basicarchitecture.network.ItemSourceFactory
-import com.develop.basicarchitecture.network.dataclasses.SearchResponse
 import com.develop.basicarchitecture.ui.main.adapter.RestaurantsAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class MainFragment : Fragment() {
 
