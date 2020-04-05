@@ -1,4 +1,4 @@
-package com.develop.basicarchitecture.ui.main
+package com.develop.basicarchitecture.ui.main.paging
 
 import androidx.recyclerview.widget.DiffUtil
 import com.develop.basicarchitecture.network.dataclasses.ListItem

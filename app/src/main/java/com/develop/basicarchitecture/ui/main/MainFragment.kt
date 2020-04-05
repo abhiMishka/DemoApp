@@ -1,18 +1,21 @@
 package com.develop.basicarchitecture.ui.main
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.develop.basicarchitecture.R
+import com.develop.basicarchitecture.network.dataclasses.ListItem
 import com.develop.basicarchitecture.ui.main.adapter.RestaurantsAdapter
+import com.develop.basicarchitecture.utility.UtilFunctions.Companion.hideKeyboard
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
@@ -23,7 +26,8 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private val restaurantsAdapter = RestaurantsAdapter()
-
+    private var searchResultObserver: LiveData<PagedList<ListItem>>? = null
+    private var lastItemCountReceived = -1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,52 +38,64 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
         setTextChangeListener()
         initializeList()
     }
 
     private fun setTextChangeListener() {
-        searchEt.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                view?.let { context?.hideKeyboard(it) }
+                return false
             }
 
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-
-                Log.i("testApi","onTextChanged : " +s.toString())
-                viewModel.search(s.toString())
-                observeLiveData()
-
-//                tvSample.setText("Text in EditText : "+s)
+            override fun onQueryTextChange(query: String?): Boolean {
+                viewModel.search(query.toString())
+                observeSearchResultLiveData()
+                if (query.isNullOrEmpty()) {
+                    searchView.queryHint = getString(R.string.type_to_filter)
+                }
+                return true
             }
         })
     }
 
+    private fun observeSearchResultLiveData() {
+        searchResultObserver?.removeObservers(viewLifecycleOwner)
+        searchResultObserver = viewModel.getRestaurantLiveData()
 
-//    private fun updateAdapter(
-//        config: PagedList.Config,
-//        pagedListAdapter: PagedListAdapter<SearchResponse.Restaurant, RecyclerView.ViewHolder>
-//    ) {
-//        val turnoverDataSourceFactory = ItemSourceFactory(Dispatchers.IO)
-//
-//        val items = PagedList.Builder(turnoverDataSourceFactory.create(), config)
-//            .setNotifyExecutor(Executor { view?.post(it) })
-//            .setFetchExecutor(Executors.newSingleThreadExecutor())
-//            .build()
-//
-//        pagedListAdapter.submitList(items)
-//    }
+        restaurantsAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                if (itemCount != 0 && lastItemCountReceived != itemCount) {
+                    hideRecycleView(false)
+                }
+                if (itemCount == 0 && itemCount == 0) {
+                    hideRecycleView(true)
+                }
+                lastItemCountReceived = itemCount
+            }
 
-    private fun observeLiveData() {
-        //observe live data emitted by view model
-        viewModel.getRestaurantLiveData()?.observe(viewLifecycleOwner, Observer {
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                super.onItemRangeRemoved(positionStart, itemCount)
+                hideRecycleView(true)
+            }
+        })
+
+        searchResultObserver?.observe(viewLifecycleOwner, Observer {
             restaurantsAdapter.submitList(it)
         })
+    }
+
+    private fun hideRecycleView(show: Boolean) {
+        placeHolderIv.visibility = View.GONE
+        if (show) {
+            placeHolderPb.visibility = View.VISIBLE
+            resultsRv.visibility = View.GONE
+        } else {
+            placeHolderPb.visibility = View.GONE
+            resultsRv.visibility = View.VISIBLE
+        }
     }
 
     private fun initializeList() {

@@ -3,25 +3,24 @@ package com.develop.basicarchitecture.ui.main.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.develop.basicarchitecture.R
+import com.develop.basicarchitecture.TopApplicationClass
 import com.develop.basicarchitecture.network.dataclasses.CuisineItem
 import com.develop.basicarchitecture.network.dataclasses.ListItem
 import com.develop.basicarchitecture.network.dataclasses.RestaurantItem
-import com.develop.basicarchitecture.ui.main.DiffUtilCallBack
+import com.develop.basicarchitecture.ui.main.paging.DiffUtilCallBack
 import kotlinx.android.synthetic.main.item_cuisine.view.*
 import kotlinx.android.synthetic.main.item_restaurant.view.*
 
 
-class RestaurantsAdapter() :
-    PagedListAdapter<ListItem, RecyclerView.ViewHolder>(
-        DiffUtilCallBack()
-    ) {
+class RestaurantsAdapter :
+    PagedListAdapter<ListItem, RecyclerView.ViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        var  viewHolder: RecyclerView.ViewHolder? = null
+        var viewHolder: RecyclerView.ViewHolder? = null
         val inflater = LayoutInflater.from(parent.context)
 
         when (viewType) {
@@ -40,7 +39,6 @@ class RestaurantsAdapter() :
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-
         when (viewHolder.getItemViewType()) {
             ListItem.TYPE_GENERAL -> {
                 val restaurantItem: RestaurantItem = getItem(position) as RestaurantItem
@@ -53,11 +51,14 @@ class RestaurantsAdapter() :
                 cuisineViewHolder.bindPost(cuisineItem)
             }
         }
+
+        setFadeAnimation(viewHolder.itemView)
     }
 
     override fun getItemViewType(position: Int): Int {
         return getItem(position)?.getType() ?: 1
     }
+
 
     class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -65,6 +66,9 @@ class RestaurantsAdapter() :
             restaurantItem.restaurantItem.restaurant.apply {
                 itemView.restaurantNameTv.text = name
                 itemView.ratingVaueTv.text = userRating.ratingText
+                itemView.addressVaueTv.text = location.address
+                itemView.costForTwoVaueTv.text = TopApplicationClass.getInstance()
+                    .getString(R.string.rupee_with_amount, averageCostForTwo.toString())
             }
         }
     }
@@ -73,9 +77,15 @@ class RestaurantsAdapter() :
         fun bindPost(cuisineItem: CuisineItem) {
             cuisineItem.apply {
                 itemView.cuisineNameTv.text = cuisineName
-
             }
         }
+    }
+
+
+    fun setFadeAnimation(view: View) {
+        val anim = AnimationUtils.loadAnimation(view.context,R.anim.right_to_left)
+        anim.duration = 500
+        view.startAnimation(anim)
     }
 
 }

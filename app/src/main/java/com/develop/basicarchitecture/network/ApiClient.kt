@@ -1,9 +1,11 @@
 package com.develop.basicarchitecture.network
 
+import com.develop.basicarchitecture.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,10 +52,10 @@ class ApiClient {
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             val original = chain.request()
             val builder = original.newBuilder().method(original.method, original.body)
-                .addHeader(USER_KEY,"93f0cea5b8e3324ba476b0ebb652c29d")
+                .addHeader(USER_KEY,BuildConfig.ZOMATO_KEY)
             val response = chain.proceed(builder.build())
             val contentType = response.body?.contentType()
-            val responseBody = ResponseBody.create(contentType, response.body?.string() ?: "")
+            val responseBody = (response.body?.string() ?: "").toResponseBody(contentType)
             return response.newBuilder().body(responseBody).build()
 
         }
