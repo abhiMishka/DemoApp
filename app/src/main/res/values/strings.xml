@@ -5,6 +5,7 @@
     <string name="address">Address</string>
     <string name="cost_for_two">Cost For Two</string>
     <string name="rupee_with_amount">₹%s</string>
-    <string name="type_to_filter">Showing all results.Type to filter...</string>
-    <string name="type_to_search">Type to search...</string>
+    <string name="type_to_filter">Showing all results.Type to filter…</string>
+    <string name="type_to_search">Type to search…</string>
+    <string name="no_internet_available">No Internet Available</string>
 </resources>

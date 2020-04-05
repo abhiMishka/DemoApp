@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.develop.basicarchitecture.R
 import com.develop.basicarchitecture.network.dataclasses.ListItem
 import com.develop.basicarchitecture.ui.main.adapter.RestaurantsAdapter
+import com.develop.basicarchitecture.utility.UtilFunctions
 import com.develop.basicarchitecture.utility.UtilFunctions.Companion.hideKeyboard
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -50,10 +51,15 @@ class MainFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                viewModel.search(query.toString())
-                observeSearchResultLiveData()
-                if (query.isNullOrEmpty()) {
-                    searchView.queryHint = getString(R.string.type_to_filter)
+                if(UtilFunctions.isNetworkAvailable()) {
+                    viewModel.search(query.toString())
+                    observeSearchResultLiveData()
+                    if (query.isNullOrEmpty()) {
+                        searchView.queryHint = getString(R.string.type_to_filter)
+                    }
+                }else{
+                    placeHolderPb.visibility = View.GONE
+                    UtilFunctions.toast(getString(R.string.no_internet_available))
                 }
                 return true
             }

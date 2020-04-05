@@ -23,5 +23,13 @@ class UtilFunctions {
                 getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
+
+        fun isNetworkAvailable(): Boolean {
+            val connectivityManager = TopApplicationClass.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE)
+                    as ConnectivityManager?
+            val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
     }
 }
